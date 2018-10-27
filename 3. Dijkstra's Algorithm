@@ -1,0 +1,63 @@
+import sys
+mylist=['A','B','C','D','E','F']
+
+class Graph():
+
+	def __init__(self,vertices):
+		self.V = vertices
+		self.graph=[[0 for columns in range(vertices)] for row in range(vertices)]
+
+	def printSolution(self,dist):
+		print "Minimum Distances from source(A) to every vertex is:"
+		for i in range(self.V):
+			print mylist[i],"-",dist[i]
+
+	def dijkstra(self, src):
+		
+		dist=[sys.maxint]*(self.V)
+		dist[src]=0
+		visited = [False]*(self.V)
+
+		for u in range(self.V):
+			visited[u]=True
+			for v in range(self.V):
+				if (self.graph[u][v] > 0 and visited[v] == False and dist[v]> dist[u] + self.graph[u][v]):
+					dist[v] = dist[u] + self.graph[u][v]
+		self.printSolution(dist)
+
+	def minpath(self, ver):
+
+		path=[mylist[ver]]
+		minimum=sys.maxint
+		while(ver>1):
+			for u in range(self.V):
+				if (self.graph[u][ver]>0 and minimum > self.graph[u][ver]):
+					minimum = self.graph[u][ver]
+					mini = u
+			path.append(mylist[mini])
+			ver=mini
+		path.append('A')
+		path.reverse()
+		for i in path:
+			if(i!=path[0]):
+				print"-",
+			print i,
+			
+g  = Graph(6)
+
+g.graph = [[0, 5, 10, 0, 0, 0],
+	[0, 0, 1, 4, 0, 0],
+	[10, 0, 0, 2, 2, 0],
+	[0, 0, 3, 0, 0, 12],
+	[0, 0, 0, 0, 0, 3],
+	[0, 0, 0, 0, 0, 0]]   
+g.dijkstra(0)
+d=raw_input("Enter destination vertex (A to F): ")
+d1=d.upper()
+while (d1 in mylist)==False:
+	print "wrong input"
+	d1=raw_input("Enter destination vertex: ")
+for i in range(0,6):
+	if(d1==mylist[i]):
+		des=i
+g.minpath(des)
