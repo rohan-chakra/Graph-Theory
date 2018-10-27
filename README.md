@@ -19,4 +19,4 @@ Basic Python code of traversing a graph in depth first search method, reporting 
  
  ### About the Algorithm
   Dijkstra's Algorithm uses BFS (Breadth First Search) Traversal to traverse the graph from the source to every other vertex in the graph. The basic concept of finding the minimum distance is the relaxation condition: 
-  distance(source)(v)=dist(source)(u) + dist(u)(v)
+ >distance(source)(v)=distance(source)(u) + distance(u)(v)
