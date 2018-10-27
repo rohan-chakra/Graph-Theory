@@ -31,7 +31,7 @@ class Graph:
 		dfs2.append([v,time])
 
 	def DFS(self):
-		global V
+		global V 
 		V=len(self.graph)
 		visited=[False]*(V)
 
