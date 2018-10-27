@@ -1,0 +1,63 @@
+from collections import defaultdict	
+time=0
+vt=[]
+ft=[]
+dfs=[]
+dfs2=[]
+V=0
+class Graph:
+
+	def __init__(self):
+		self.graph = defaultdict(list)
+
+	def addEdge(self,u,v):
+		self.graph[u].append(v)
+
+	def DFSUtil(self,v,visited):
+		global time
+		global vt
+		global ft
+		time+=1
+		visited[v] = True
+		vt.append(time)
+		dfs.append(v)
+
+		for i in self.graph[v]:
+			if(visited[i]==False):
+				self.DFSUtil(i,visited)
+
+		time+=1
+		ft.append(time)
+		dfs2.append([v,time])
+
+	def DFS(self):
+		global V
+		V=len(self.graph)
+		visited=[False]*(V)
+
+		for i in range(V):
+			if(visited[i]==False):
+				self.DFSUtil(i,visited)
+
+g = Graph()
+edge=[]
+myfile=open('dfs_input.txt')
+allchar=myfile.read()
+list1=allchar.split('\n')
+x=len(list1)
+for i in list1:
+	edge.append(map(int,i.split()))
+
+for i in range(x-1):
+	g.addEdge(edge[i][0],edge[i][1])		
+
+print "Following is Depth First Traversal: (DFS Edge - Visited Time, DFS Edge- Finished Time)"
+g.DFS()
+for i in range(V):
+    print dfs[i],"-",
+    print vt[i], "\t\t",
+    for j in dfs2[i]:
+        print j,
+        if(j==dfs2[i][0]):
+            print "-",
+    print("\n"),
